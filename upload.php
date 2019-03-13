@@ -237,7 +237,8 @@ if (is_uploaded_file($_FILES["userfile"]["tmp_name"])) {
 		move_uploaded_file($_FILES["userfile"]["tmp_name"], $current_file);
 
 		// Chmod new file to original file permissions
-		@chmod($current_file, $original_file_perms);
+        error_log(print_r($original_file_perms, true));
+		chmod($current_file, $original_file_perms);
 
 		// Make thumb and/or update metadata
 		wp_update_attachment_metadata( (int) $_POST["ID"], wp_generate_attachment_metadata( (int) $_POST["ID"], $current_file ) );
