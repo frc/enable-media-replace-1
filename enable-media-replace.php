@@ -66,40 +66,6 @@ function enable_media_replace( $form_fields, $post ) {
 	return $form_fields;
 }
 
-function active_s3_plugins() {
-    // check for plugin using plugin name
-    $plugins = apply_filters('active_plugins', get_option('active_plugins'));
-
-    if ((in_array('wp-amazon-s3-and-cloudfront/wordpress-s3.php', $plugins) || in_array('amazon-s3-and-cloudfront/wordpress-s3.php', $plugins))) {
-        return true;
-    }
-
-    return false;
-}
-
-function get_attached_file_copy_back_to_local($copy_back_to_local, $file, $attachment_id) {
-    if (!defined('DOING_AJAX') || !DOING_AJAX) {
-        return $copy_back_to_local;
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] == 'media_replace_upload') {
-        check_admin_referer('media_replace_upload'); // die if invalid or missing nonce
-        $copy_back_to_local = true;
-    }
-
-    return $copy_back_to_local;
-}
-
-if (active_s3_plugins()) {
-    global $as3cf;
-    if (false === $as3cf instanceof Amazon_S3_And_CloudFront || !$as3cf->is_plugin_setup() || !$as3cf->get_setting('copy-to-s3')) {
-        return false;
-    }
-
-    add_filter('as3cf_get_attached_file_copy_back_to_local', 'get_attached_file_copy_back_to_local', 10, 3);
-
-}
-
 /**
  * Load the replace media panel.
  * Panel is show on the action 'media-replace' and a given attachement.
