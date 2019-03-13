@@ -15,7 +15,7 @@ $postmeta_table_name = $wpdb->prefix . "postmeta";
  */
 function emr_delete_current_files( $current_file, $metadata = null ) {
 	// Delete old file
-
+    return;
 	// Find path of current file
 	$current_path = substr($current_file, 0, (strrpos($current_file, "/")));
 
