@@ -248,7 +248,7 @@ if (is_uploaded_file($_FILES["userfile"]["tmp_name"])) {
 	} elseif ( 'replace_and_search' == $replace_type && apply_filters( 'emr_enable_replace_and_search', true ) ) {
 		// Replace file, replace file name, update meta data, replace links pointing to old file name
 
-		emr_delete_current_files( $current_file, $current_metadata );
+//		emr_delete_current_files( $current_file, $current_metadata );
 
 		// Massage new filename to adhere to WordPress standards
 		$new_filename = wp_unique_filename( $current_path, $new_filename );
@@ -259,7 +259,7 @@ if (is_uploaded_file($_FILES["userfile"]["tmp_name"])) {
 		move_uploaded_file($_FILES["userfile"]["tmp_name"], $new_file);
 
 		// Chmod new file to original file permissions
-		@chmod($current_file, $original_file_perms);
+//		@chmod($current_file, $original_file_perms);
 
 		$new_filetitle = preg_replace('/\.[^.]+$/', '', basename($new_file));
 		$new_filetitle = apply_filters( 'enable_media_replace_title', $new_filetitle ); // Thanks Jonas Lundman (http://wordpress.org/support/topic/add-filter-hook-suggestion-to)
